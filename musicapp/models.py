@@ -2,9 +2,9 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
-class Artist(models.Model):
-    first_name = models.CharField(max_length=25)
-    last_name = models.CharField(max_length=25)
+class Artiste(models.Model):
+    first_name = models.CharField(max_length=26)
+    last_name = models.CharField(max_length=25) 
     age=models.IntegerField(default='null')
         
 
@@ -13,11 +13,10 @@ class Artist(models.Model):
 
 
 class Song(models.Model):
-    Artiste = models.ForeignKey(Artist,on_delete=models.CASCADE,null=True)
-    title = models.CharField(max_length=300)
+    Artiste = models.ForeignKey(Artiste,on_delete=models.CASCADE)
+    title = models.CharField(max_length=310)
     date_released = models.DateField(null=True)
     likes = models.CharField(max_length=300)
-    artist_id = models.CharField(max_length=25, default='null')
 
 
     def __str__(self):
@@ -25,16 +24,11 @@ class Song(models.Model):
 
     
 class Lyric(models.Model):
-    Artiste = models.ForeignKey(Artist,on_delete=models.CASCADE,null=True)
-    Song = models.ForeignKey(Song,on_delete=models.CASCADE,null=True)
-    content = models.CharField(max_length=3000)
-    song_id = models.CharField(max_length=25, default='null')
+    Song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    content = models.CharField(max_length=3100)
     
     def __str__(self):
         if len(self.content) > 100:
             return f'{self.content[0:100]}...'
         else:
-            return f'{self.content}'
-            
-
-
+            return f'{self.content}'    
